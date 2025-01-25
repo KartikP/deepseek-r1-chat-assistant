@@ -1,0 +1,64 @@
+# Clean everything
+rm -rf node_modules package-lock.json .next
+
+# Create a fresh package.json with correct dependencies
+cat > package.json << EOL
+{
+  "name": "perplexity-clone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.6.0",
+    "react-icons": "^4.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.3.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.0"
+  }
+}
+EOL
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev 
+rm -rf src/app/page.tsx 
+
+# Create the API directory
+mkdir -p src/app/api/chat
+
+# Create the required files
+touch src/app/page.tsx
+touch src/app/api/chat/route.ts 
+
+# Stop the current server (Ctrl+C)
+# Clear the cache
+rm -rf .next
+# Start the server again
+npm run dev 
+
+npm install -D @types/next
+npm install next@latest 
+
+# Ensure the page file exists
+cat > src/app/page.tsx << EOL
+'use client'
+
+import React from 'react'
+// ... rest of your page.tsx content
+EOL 
